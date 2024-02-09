@@ -11,9 +11,10 @@ datasource db {
 }
 
 model Organization {
-  id            String @id @default(uuid())
+  id            String  @id @default(uuid())
+  name          String?
   owner         String
-  email         String @unique
+  email         String  @unique
   password_hash String
   phone         String
 
@@ -24,6 +25,7 @@ model Organization {
   zipcode String
 
   created_at DateTime @default(now())
+  Pet        Pet[]
 
   @@map("orgs")
 }
@@ -67,17 +69,23 @@ model Pet {
   species            String
   description        String
   age                Age
+  size               Size
   energy_level       Energy
   independence_level Independence
   environment        Environment
 
-  Upload               Upload[]
-  AdoptionRequirements AdoptionRequirements[]
+  uploads              Upload[]
+  adoptionRequirements AdoptionRequirement[]
+
+  created_at DateTime @default(now())
+
+  organization_id String
+  orgs            Organization @relation(fields: [organization_id], references: [id])
 
   @@map("pets")
 }
 
-model AdoptionRequirements {
+model AdoptionRequirement {
   id          String @id
   requirement String
   pet_id      String
