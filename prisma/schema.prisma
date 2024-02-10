@@ -73,14 +73,14 @@ model Pet {
   energy_level       Energy
   independence_level Independence
   environment        Environment
+  organization_id    String
 
   uploads              Upload[]
   adoptionRequirements AdoptionRequirement[]
 
   created_at DateTime @default(now())
 
-  organization_id String
-  orgs            Organization @relation(fields: [organization_id], references: [id])
+  orgs Organization @relation(fields: [organization_id], references: [id])
 
   @@map("pets")
 }
@@ -96,11 +96,13 @@ model AdoptionRequirement {
 }
 
 model Upload {
-  id      String @id
-  fileUrl String
-  pet_id  String
+  id          String  @id @default(uuid())
+  title       String
+  sizeInBytes Int
+  storageKey  String
+  pet_id      String?
 
-  pet Pet @relation(fields: [pet_id], references: [id])
+  pet Pet? @relation(fields: [pet_id], references: [id])
 
   @@map("uploads")
 }
