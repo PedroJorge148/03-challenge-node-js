@@ -11,7 +11,8 @@ export class InMemoryUploadsRepository implements UploadsRepository {
       title: data.title,
       sizeInBytes: data.sizeInBytes,
       storageKey: data.storageKey,
-      pet_id: data.pet_id ?? null,
+      fileUrl: data.fileUrl,
+      pet_id: data.pet_id,
     }
 
     this.items.push(upload)

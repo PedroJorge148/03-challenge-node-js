@@ -32,8 +32,6 @@ describe('Upload Pet Image Use Case', () => {
       })
     }
 
-    console.log()
-
     expect(uploadsRepository.items).toHaveLength(5)
   })
 })

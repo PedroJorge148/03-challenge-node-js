@@ -30,63 +30,32 @@ model Organization {
   @@map("orgs")
 }
 
-enum Age {
-  LITTLE
-  YOUNG
-  ADULT
-  OLD
-}
-
-enum Size {
-  SMALL
-  MEDIUM
-  BIG
-}
-
-enum Energy {
-  VERY_LOW
-  LOW
-  MODERATE
-  HIGH
-  VERY_HIGH
-}
-
-enum Independence {
-  LOW
-  MEDIUM
-  HIGH
-}
-
-enum Environment {
-  SMALL
-  MEDIUM
-  SPACIOUS
-}
-
 model Pet {
-  id                 String       @id @default(uuid())
-  name               String
-  species            String
-  description        String
-  age                Age
-  size               Size
-  energy_level       Energy
-  independence_level Independence
-  environment        Environment
-  organization_id    String
+  id          String @id @default(uuid())
+  name        String
+  species     String
+  description String
+
+  age                String
+  size               String
+  energy_level       String
+  independence_level String
+  environment        String
+
+  org_id String
 
   uploads              Upload[]
   adoptionRequirements AdoptionRequirement[]
 
   created_at DateTime @default(now())
 
-  orgs Organization @relation(fields: [organization_id], references: [id])
+  org Organization @relation(fields: [org_id], references: [id])
 
   @@map("pets")
 }
 
 model AdoptionRequirement {
-  id          String @id
+  id          Int    @id @default(autoincrement())
   requirement String
   pet_id      String
 
@@ -96,13 +65,14 @@ model AdoptionRequirement {
 }
 
 model Upload {
-  id          String  @id @default(uuid())
+  id          String @id @default(uuid())
   title       String
   sizeInBytes Int
   storageKey  String
-  pet_id      String?
+  fileUrl     String
+  pet_id      String
 
-  pet Pet? @relation(fields: [pet_id], references: [id])
+  pet Pet @relation(fields: [pet_id], references: [id])
 
   @@map("uploads")
 }

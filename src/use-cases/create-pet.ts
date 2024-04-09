@@ -1,45 +1,44 @@
-// import { OrgsRepository } from '@/repositories/orgs-repository'
-// import {
-//   AdoptionRequirement,
-//   Environment,
-//   Independence,
-//   Pet,
-//   Upload,
-//   Size,
-//   Energy,
-//   Age,
-// } from '@prisma/client'
-// import { hash } from 'bcryptjs'
-// import { OrgAlreadyExistsError } from './errors/org-already-exists-error'
-// import { PetsRepository } from '@/repositories/pets-repository'
+import { OrgsRepository } from '@/repositories/orgs-repository'
+import { PetsRepository } from '@/repositories/pets-repository'
+import { Pet } from '@prisma/client'
+import { OrgNotFoundError } from './errors/org-not-found-error'
 
-// interface CreatePetUseCaseRequest {
-//   name: string
-//   species: string
-//   description: string
-//   age: Age
-//   size: Size
-//   energy_level: Energy
-//   independence_level: Independence
-//   environment: Environment
-//   uploads: Upload[]
-//   adoptionRequiriments: AdoptionRequirement[]
-// }
+interface CreatePetUseCaseRequest {
+  name: string
+  species: string
+  description: string
+  age: string
+  size: string
+  energy_level: string
+  independence_level: string
+  environment: string
+  adoptionRequiriments: string[]
+  org_id: string
+}
 
-// interface CreatePetUseCaseResponse {
-//   pet: Pet
-// }
+interface CreatePetUseCaseResponse {
+  pet: Pet
+}
 
-// export class CreatePetUseCase {
-//   constructor(private petsRepository: PetsRepository) {}
+export class CreatePetUseCase {
+  constructor(
+    private petsRepository: PetsRepository,
+    private orgsRepository: OrgsRepository,
+  ) {}
 
-//   async execute(
-//     props: CreatePetUseCaseRequest,
-//   ): Promise<CreatePetUseCaseResponse> {
-//     const pet = await this.petsRepository.create(props)
+  async execute(
+    props: CreatePetUseCaseRequest,
+  ): Promise<CreatePetUseCaseResponse> {
+    const org = await this.orgsRepository.findById(props.org_id)
 
-//     return {
-//       org,
-//     }
-//   }
-// }
+    if (!org) {
+      throw new OrgNotFoundError()
+    }
+
+    const pet = await this.petsRepository.create(props)
+
+    return {
+      pet,
+    }
+  }
+}

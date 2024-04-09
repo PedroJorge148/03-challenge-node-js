@@ -1,6 +1,7 @@
-import { PetsRepository } from '@/repositories/pets-repository'
+import { FindAllParams, PetsRepository } from '@/repositories/pets-repository'
 import { Pet, Prisma } from '@prisma/client'
 import { randomUUID } from 'node:crypto'
+import { create } from 'node:domain'
 
 export class InMemoryPetsRepository implements PetsRepository {
   public items: Pet[] = []
@@ -18,7 +19,7 @@ export class InMemoryPetsRepository implements PetsRepository {
       environment: data.environment,
       uploads: data.uploads,
       adoptionRequiriments: data.adoptionRequirements,
-      organization_id: data.organization_id,
+      org_id: data.org_id,
       created_at: new Date(),
     }
 
@@ -26,4 +27,16 @@ export class InMemoryPetsRepository implements PetsRepository {
 
     return pet
   }
+
+  async findById(id: string) {
+    const pet = this.items.find((item) => item.id === id)
+
+    if (!pet) {
+      return null
+    }
+
+    return pet
+  }
+
+  async findAll(params: FindAllParams) {}
 }
