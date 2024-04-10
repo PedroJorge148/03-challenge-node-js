@@ -1,6 +1,5 @@
 import { PetsRepository } from '@/repositories/pets-repository'
 import { Pet } from '@prisma/client'
-import { PetNotFoundError } from './errors/pet-not-found'
 
 interface SearchPetsRequest {
   city: string
@@ -18,8 +17,8 @@ interface SearchPetsResponse {
 export class SearchPets {
   constructor(private petsRepository: PetsRepository) {}
 
-  async execute({ city }: SearchPetsRequest): Promise<SearchPetsResponse> {
-    const pets = await this.petsRepository.findAll(city)
+  async execute(props: SearchPetsRequest): Promise<SearchPetsResponse> {
+    const pets = await this.petsRepository.findAll(props)
 
     return {
       pets,

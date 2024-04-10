@@ -4,13 +4,16 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import { GetPetUseCase } from './get-pet'
 import { makePet } from 'test/factories/make-pet-factory'
 import { PetNotFoundError } from './errors/pet-not-found'
+import { InMemoryOrgsRepository } from 'test/repositories/in-memory-orgs-repository'
 
+let orgsRepository: InMemoryOrgsRepository
 let petsRepository: PetsRepository
 let sut: GetPetUseCase
 
 describe('Get Pet Use Case', () => {
   beforeEach(() => {
-    petsRepository = new InMemoryPetsRepository()
+    orgsRepository = new InMemoryOrgsRepository()
+    petsRepository = new InMemoryPetsRepository(orgsRepository)
     sut = new GetPetUseCase(petsRepository)
   })
 

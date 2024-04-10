@@ -1,20 +1,18 @@
-import { OrgsRepository } from '@/repositories/orgs-repository'
-import { PetsRepository } from '@/repositories/pets-repository'
 import { makeOrg } from 'test/factories/make-org-factory'
 import { InMemoryOrgsRepository } from 'test/repositories/in-memory-orgs-repository'
 import { InMemoryPetsRepository } from 'test/repositories/in-memory-pets-repository'
 import { beforeEach, describe, expect, it } from 'vitest'
-import { OrgNotFoundError } from './errors/org-not-found-error'
 import { CreatePetUseCase } from './create-pet'
+import { OrgNotFoundError } from './errors/org-not-found-error'
 
-let petsRepository: PetsRepository
-let orgsRepository: OrgsRepository
+let petsRepository: InMemoryPetsRepository
+let orgsRepository: InMemoryOrgsRepository
 let sut: CreatePetUseCase
 
 describe('Create Pet Use Case', () => {
   beforeEach(() => {
-    petsRepository = new InMemoryPetsRepository()
     orgsRepository = new InMemoryOrgsRepository()
+    petsRepository = new InMemoryPetsRepository(orgsRepository)
     sut = new CreatePetUseCase(petsRepository, orgsRepository)
   })
 

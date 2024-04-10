@@ -1,11 +1,10 @@
-import { OrgsRepository } from '@/repositories/orgs-repository'
 import { hash } from 'bcryptjs'
 import { InMemoryOrgsRepository } from 'test/repositories/in-memory-orgs-repository'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { AuthenticateUseCase } from './authenticate'
 import { InvalidCredentialsError } from './errors/invalid-credentials-error'
 
-let orgsRepository: OrgsRepository
+let orgsRepository: InMemoryOrgsRepository
 let sut: AuthenticateUseCase
 
 describe('Authenticate Use Case', () => {

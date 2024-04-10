@@ -1,0 +1,25 @@
+POST http://localhost:3333/orgs
+Content-Type: 'application/json'
+
+{
+  "name": "Seu Cãopanheiro",
+  "owner": "John Doe",
+  "email": "johndoe@example.com",
+  "password": "123456",
+  "phone": "(81) 91234-5678",
+  "number": "123",
+  "address": "Rua do meio",
+  "city": "Recife",
+  "state": "PE",
+  "zipcode": "13254-000"
+}
+
+###
+
+POST http://localhost:3333/sessions
+Content-Type: 'application/json'
+
+{
+  "email": "johndoe@example.com",
+  "password": "123456"
+}
