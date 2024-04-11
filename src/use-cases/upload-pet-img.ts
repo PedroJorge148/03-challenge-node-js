@@ -23,7 +23,7 @@ export class UploadPetImageCase {
   async execute(
     data: UploadPetImageCaseRequest,
   ): Promise<UploadPetImageCaseResponse> {
-    const doesPetExists = this.petsRepository.findById(data.pet_id)
+    const doesPetExists = await this.petsRepository.findById(data.pet_id)
 
     if (!doesPetExists) {
       throw new PetNotFoundError()

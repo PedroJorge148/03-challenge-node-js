@@ -39,8 +39,6 @@ export async function upload(request: FastifyRequest, reply: FastifyReply) {
     fileUploadName,
   )
 
-  await pump(data.file, createWriteStream(uploadDestination))
-
   try {
     const uploadPetImageUseCase = makeUploadPetImageUseCase()
 
@@ -50,6 +48,8 @@ export async function upload(request: FastifyRequest, reply: FastifyReply) {
       fileUrl: uploadDestination,
       pet_id: id,
     })
+
+    await pump(data.file, createWriteStream(uploadDestination))
 
     return reply.status(201).send({ upload })
   } catch (err) {

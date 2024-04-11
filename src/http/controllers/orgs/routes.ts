@@ -1,10 +1,10 @@
 import { FastifyInstance } from 'fastify'
-import { create } from './create.ts'
-import { authenticate } from './authenticate.js'
-import { verifyJWT } from '@/http/middleware/verify-jwt.js'
+import { authenticate } from './authenticate'
+import { verifyJWT } from '@/http/middleware/verify-jwt'
+import { register } from './register'
 
 export async function orgsRoutes(app: FastifyInstance) {
-  app.post('/orgs', create)
+  app.post('/orgs', register)
   app.post('/orgs/authenticate', authenticate)
 
   app.get('/ok', { onRequest: [verifyJWT] }, (request) => {

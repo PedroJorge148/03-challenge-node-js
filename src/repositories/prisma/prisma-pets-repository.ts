@@ -51,7 +51,7 @@ export class PrismaPetsRepository implements PetsRepository {
         org: {
           city: {
             contains: params.city,
-            // mode: 'insensitive' // TODO: When postgres remove comment
+            mode: 'insensitive',
           },
         },
       },
