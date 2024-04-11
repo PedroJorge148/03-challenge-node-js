@@ -65,12 +65,11 @@ model AdoptionRequirement {
 }
 
 model Upload {
-  id          String @id @default(uuid())
-  title       String
-  sizeInBytes Int
-  storageKey  String
-  fileUrl     String
-  pet_id      String
+  id         String @id @default(uuid())
+  title      String
+  storageKey String
+  fileUrl    String
+  pet_id     String
 
   pet Pet @relation(fields: [pet_id], references: [id])
 

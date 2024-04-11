@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "dev": "tsx watch --env-file=.env src/server.ts",
-    "test": "vitest run",
-    "test:watch": "vitest"
+    "test": "vitest run --dir src/use-cases",
+    "test:e2e": "vitest run --dir src/http",
+    "test:watch": "vitest --dir src/use-cases"
   },
   "keywords": [],
   "author": "",
@@ -26,6 +26,7 @@
     "@faker-js/faker": "^8.4.1",
     "@fastify/cookie": "^9.3.1",
     "@fastify/jwt": "^8.0.0",
+    "@fastify/multipart": "^8.2.0",
     "@prisma/client": "^5.12.1",
     "bcryptjs": "^2.4.3",
     "fastify": "^4.26.0",

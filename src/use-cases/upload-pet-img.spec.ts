@@ -1,21 +1,29 @@
 import { InMemoryUploadsRepository } from 'test/repositories/in-memory-uploads-repository'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { UploadPetImageCase } from './upload-pet-img'
+import { InMemoryPetsRepository } from 'test/repositories/in-memory-pets-repository'
+import { InMemoryOrgsRepository } from 'test/repositories/in-memory-orgs-repository'
 
 let uploadsRepository: InMemoryUploadsRepository
+let orgsRepository: InMemoryOrgsRepository
+let petsRepository: InMemoryPetsRepository
 let sut: UploadPetImageCase
 
 describe('Upload Pet Image Use Case', () => {
   beforeEach(() => {
     uploadsRepository = new InMemoryUploadsRepository()
-    sut = new UploadPetImageCase(uploadsRepository)
+
+    orgsRepository = new InMemoryOrgsRepository()
+
+    petsRepository = new InMemoryPetsRepository(orgsRepository)
+    sut = new UploadPetImageCase(uploadsRepository, petsRepository)
   })
 
   it('should be able to upload an image', async () => {
     const { upload } = await sut.execute({
       title: 'example-title.png',
-      sizeInBytes: 12124,
       storageKey: 'adfagfsgdasda-example-title.png',
+      fileUrl: 'example/example-title.png',
       pet_id: 'example-pet-id',
     })
 
@@ -26,8 +34,8 @@ describe('Upload Pet Image Use Case', () => {
     for (let i = 1; i <= 5; i++) {
       await sut.execute({
         title: 'example-title.png',
-        sizeInBytes: 12124,
         storageKey: 'adfagfsgdasda-example-title.png',
+        fileUrl: 'example/example-title.png',
         pet_id: 'example-pet-id',
       })
     }
