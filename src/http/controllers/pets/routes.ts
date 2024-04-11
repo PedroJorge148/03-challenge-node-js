@@ -20,10 +20,4 @@ export async function petsRoutes(app: FastifyInstance) {
 
   app.get('/pets', searchPets)
   app.get('/pets/:id', getPet)
-
-  // TODO: Remove this route
-  app.get('/example-pet', () => {
-    const pet = makePet()
-    return pet
-  })
 }
