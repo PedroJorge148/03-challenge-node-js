@@ -13,7 +13,7 @@ export function makePet(
     age: faker.number.int({ min: 0, max: 12 }).toString(),
     size: faker.helpers.arrayElement(['small', 'medium', 'large']),
     energy_level: faker.helpers.arrayElement(['low', 'medium', 'high']),
-    environment: faker.helpers.arrayElement(['indoor', 'outdoor']),
+    environment: faker.helpers.arrayElement(['indoors', 'outdoors']),
     independence_level: faker.helpers.arrayElement(['low', 'medium', 'high']),
     org_id: 'example-org-id',
     ...override,

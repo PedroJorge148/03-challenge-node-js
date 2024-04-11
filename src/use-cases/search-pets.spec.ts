@@ -3,17 +3,17 @@ import { makePet } from 'test/factories/make-pet-factory'
 import { InMemoryOrgsRepository } from 'test/repositories/in-memory-orgs-repository'
 import { InMemoryPetsRepository } from 'test/repositories/in-memory-pets-repository'
 import { beforeEach, describe, expect, it } from 'vitest'
-import { SearchPets } from './search-pets'
+import { SearchPetsUseCase } from './search-pets'
 
 let orgsRepository: InMemoryOrgsRepository
 let petsRepository: InMemoryPetsRepository
-let sut: SearchPets
+let sut: SearchPetsUseCase
 
 describe('Search Pets Use Case', () => {
   beforeEach(() => {
     orgsRepository = new InMemoryOrgsRepository()
     petsRepository = new InMemoryPetsRepository(orgsRepository)
-    sut = new SearchPets(petsRepository)
+    sut = new SearchPetsUseCase(petsRepository)
   })
 
   it('should be able to search for pets by city', async () => {

@@ -12,7 +12,7 @@ interface CreatePetUseCaseRequest {
   energy_level: string
   independence_level: string
   environment: string
-  adoptionRequiriments: string[]
+  adoptionRequirements: string[]
   org_id: string
 }
 
@@ -26,16 +26,22 @@ export class CreatePetUseCase {
     private orgsRepository: OrgsRepository,
   ) {}
 
-  async execute(
-    props: CreatePetUseCaseRequest,
-  ): Promise<CreatePetUseCaseResponse> {
+  async execute({
+    adoptionRequirements,
+    ...props
+  }: CreatePetUseCaseRequest): Promise<CreatePetUseCaseResponse> {
     const org = await this.orgsRepository.findById(props.org_id)
 
     if (!org) {
       throw new OrgNotFoundError()
     }
 
-    const pet = await this.petsRepository.create(props)
+    const pet = await this.petsRepository.create(
+      {
+        ...props,
+      },
+      adoptionRequirements,
+    )
 
     return {
       pet,

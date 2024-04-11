@@ -29,7 +29,7 @@ describe('Create Pet Use Case', () => {
       energy_level: 'low',
       independence_level: 'low',
       environment: 'indoors',
-      adoptionRequiriments: ['Local grande para o animal correr e brincar.'],
+      adoptionRequirements: ['Local grande para o animal correr e brincar.'],
       org_id,
     })
 
@@ -47,7 +47,7 @@ describe('Create Pet Use Case', () => {
       energy_level: 'low',
       independence_level: 'low',
       environment: 'indoors',
-      adoptionRequiriments: ['Local grande para o animal correr e brincar.'],
+      adoptionRequirements: ['Local grande para o animal correr e brincar.'],
       org_id: 'non-existing-org',
     }
 

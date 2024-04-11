@@ -59,7 +59,7 @@ model AdoptionRequirement {
   requirement String
   pet_id      String
 
-  pet Pet @relation(fields: [pet_id], references: [id])
+  pet Pet @relation(fields: [pet_id], references: [id], onDelete: Cascade)
 
   @@map("requirements")
 }

@@ -7,5 +7,7 @@ export async function orgsRoutes(app: FastifyInstance) {
   app.post('/orgs', create)
   app.post('/orgs/authenticate', authenticate)
 
-  app.get('/ok', { onRequest: [verifyJWT] }, () => 'ok')
+  app.get('/ok', { onRequest: [verifyJWT] }, (request) => {
+    return request.user
+  })
 }

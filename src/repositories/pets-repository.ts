@@ -10,7 +10,10 @@ export interface FindAllParams {
 }
 
 export interface PetsRepository {
-  create(pet: Prisma.PetUncheckedCreateInput): Promise<Pet>
+  create(
+    data: Prisma.PetUncheckedCreateInput,
+    adoptionRequirements?: string[],
+  ): Promise<Pet>
   findById(id: string): Promise<Pet | null>
-  findAll(params: FindAllParams): Promise<Pet[]>
+  findAll(params: FindAllParams): Promise<Partial<Pet>[]>
 }
